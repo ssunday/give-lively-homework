@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Nonprofit, type: :model do
   describe 'associations' do
+    it { should have_many(:check_transactions) }
     it { should have_many(:donations) }
   end
 

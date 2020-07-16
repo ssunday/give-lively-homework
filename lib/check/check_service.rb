@@ -4,8 +4,16 @@ module Check
       @check_client = check_client
     end
 
-    def create_check(description:, amount:, recipient:)
-      check_client.create_check(description: description, amount: amount, recipient: recipient)
+    def create_check(check_transaction)
+      nonprofit = check_transaction.nonprofit
+
+      check_client.create_check(
+        description: "#{nonprofit.name} - #{check_transaction.initiated_at}",
+        amount: check_transaction.amount,
+        recipient: nonprofit
+      )
+
+      check_transaction.update!(status: :sent, sent_at: Time.now.utc)
     end
 
     private
