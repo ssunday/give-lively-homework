@@ -21,9 +21,9 @@ RSpec.describe '/nonprofits', type: :request do
   end
 
   describe 'GET /index' do
-    let(:nonprofit1) { Nonprofit.create!(valid_attributes) }
-    let(:nonprofit2) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit B')) }
-    let(:nonprofit3) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit C')) }
+    let!(:nonprofit1) { Nonprofit.create!(valid_attributes) }
+    let!(:nonprofit2) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit B')) }
+    let!(:nonprofit3) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit C')) }
 
     it 'returns only nonprofits that have checks in draft state' do
       CheckTransaction.create!(nonprofit: nonprofit1, status: :draft)
