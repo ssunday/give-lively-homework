@@ -30,3 +30,4 @@ Give Lively code for interview process.
 - [ ] Pagination with nonprofits
 - [ ] Setup webhook ingestion of LOB status change
 - [ ] Add seeds
+- [ ] Better validations/responses
