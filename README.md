@@ -24,8 +24,9 @@ Give Lively code for interview process.
 ## TODO
 
 - [ ] Add date range on draft transactions
-- [ ] Setup Check Transaction <> donations relationship join table
+- [x] Setup Check Transaction <> donations relationship join table
 - [ ] Setup Cron/Transaction job fully to create transactions at 15th of every month
 - [ ] Better LOB error handling
 - [ ] Pagination with nonprofits
 - [ ] Setup webhook ingestion of LOB status change
+- [ ] Add seeds

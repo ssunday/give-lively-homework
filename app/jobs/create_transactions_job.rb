@@ -5,11 +5,13 @@ class CreateTransactionsJob < ApplicationJob
 
       next unless donations.count.positive?
 
-      CheckTransaction.create!(
+      check_transaction = CheckTransaction.create!(
         nonprofit: nonprofit,
         status: :draft,
         amount: donations.sum(:amount)
       )
+
+      check_transaction.donations = donations
     end
   end
 end

@@ -15,19 +15,19 @@ RSpec.describe CreateTransactionsJob, type: :job do
       processed_at: start_date - 1.day,
       amount: 15.22
     )
-    Donation.create!(
+    nonprofit2_donation1 = Donation.create!(
       nonprofit: nonprofit2,
       initiated_at: start_date,
       processed_at: end_date - 1.day,
       amount: 12.25
     )
-    Donation.create!(
+    nonprofit2_donation2 = Donation.create!(
       nonprofit: nonprofit2,
       initiated_at: start_date,
       processed_at: start_date + 1.day,
       amount: 33.45
     )
-    Donation.create!(
+    nonprofit1_donation1 = Donation.create!(
       nonprofit: nonprofit1,
       initiated_at: start_date,
       processed_at: end_date - 5.days,
@@ -45,7 +45,12 @@ RSpec.describe CreateTransactionsJob, type: :job do
 
     expect(CheckTransaction.count).to eq(2)
     expect(CheckTransaction.draft.count).to eq(2)
-    expect(nonprofit2.check_transactions.first.amount).to eq(45.70)
-    expect(nonprofit1.check_transactions.first.amount).to eq(21.50)
+
+    check_transaction1 = nonprofit1.check_transactions.first
+    check_transaction2 = nonprofit2.check_transactions.first
+    expect(check_transaction1.amount.to_f).to eq(21.50)
+    expect(check_transaction2.amount.to_f).to eq(45.70)
+    expect(check_transaction1.donations.to_a).to match_array([nonprofit1_donation1])
+    expect(check_transaction2.donations.to_a).to match_array([nonprofit2_donation1, nonprofit2_donation2])
   end
 end
