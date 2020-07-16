@@ -13,7 +13,7 @@ module Check
         recipient: nonprofit
       )
 
-      check_transaction.update!(status: :sent, sent_at: Time.now.utc)
+      check_transaction.update!(status: :sent, initiated_at: Time.now.utc)
     end
 
     private

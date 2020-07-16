@@ -34,7 +34,7 @@ RSpec.describe Check::CheckService do
       check_transaction.reload
 
       expect(check_transaction.status).to eq('sent')
-      expect(check_transaction.sent_at.to_date).to eq(Time.zone.today)
+      expect(check_transaction.initiated_at.to_date).to eq(Time.zone.today)
     end
   end
 end
