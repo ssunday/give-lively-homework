@@ -5,7 +5,7 @@ Give Lively code for interview process.
 ## Requirements
 
 - Ruby 2.6.6
-- Postgres (11)
+- Postgres (10+)
 
 ## Setup
 
@@ -20,3 +20,12 @@ Give Lively code for interview process.
 ## Linting
 
 `bundle exec rubocop -a`
+
+## TODO
+
+- [ ] Add date range on draft transactions
+- [ ] Setup Check Transaction <> donations relationship join table
+- [ ] Setup Cron/Transaction job fully to create transactions at 15th of every month
+- [ ] Better LOB error handling
+- [ ] Pagination with nonprofits
+- [ ] Setup webhook ingestion of LOB status change
