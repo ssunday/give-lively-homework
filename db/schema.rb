@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_134659) do
+ActiveRecord::Schema.define(version: 2020_07_16_155946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "check_transactions", force: :cascade do |t|
+    t.bigint "nonprofit_id", null: false
+    t.decimal "amount", precision: 19, scale: 4
+    t.integer "status"
+    t.datetime "initiated_at"
+    t.datetime "sent_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nonprofit_id"], name: "index_check_transactions_on_nonprofit_id"
+  end
 
   create_table "donations", force: :cascade do |t|
     t.decimal "amount", precision: 19, scale: 4
@@ -36,5 +47,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_134659) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "check_transactions", "nonprofits"
   add_foreign_key "donations", "nonprofits"
 end
