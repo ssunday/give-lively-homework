@@ -21,10 +21,21 @@ RSpec.describe '/nonprofits', type: :request do
   end
 
   describe 'GET /index' do
-    it 'renders a successful response' do
-      Nonprofit.create! valid_attributes
+    let(:nonprofit1) { Nonprofit.create!(valid_attributes) }
+    let(:nonprofit2) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit B')) }
+    let(:nonprofit3) { Nonprofit.create!(valid_attributes.merge(name: 'Nonprofit C')) }
+
+    it 'returns only nonprofits that have checks in draft state' do
+      CheckTransaction.create!(nonprofit: nonprofit1, status: :draft)
+      CheckTransaction.create!(nonprofit: nonprofit2, status: :sent)
+
       get nonprofits_url, headers: valid_headers, as: :json
+
+      data = JSON.parse(response.body)
+
       expect(response).to be_successful
+      expect(data.count).to eq(1)
+      expect(data.first).to eq(nonprofit1.as_json(include: :draft_check_transaction))
     end
   end
 
